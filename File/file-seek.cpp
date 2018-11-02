@@ -7,20 +7,14 @@ struct stu{
 	int num;
 	int age;
 	char addr[15];
-<<<<<<< HEAD
 } boy,*qq;
 
-int main(){
-=======
-}boy,*qq;
 
 main(){
->>>>>>> c263965a7f764eda41b858c22af91888ff003ce8
 	FILE *fp;
 	char ch;
 	int i=1;
 	qq=&boy;
-<<<<<<< HEAD
 	if((fp=fopen("C:\\Users\\hzh\\Desktop\\stu","rb"))==NULL){
 		printf("Cannot open file strike any key exit!");
 		getch();
@@ -48,6 +42,4 @@ main(){
 	fclose(fp); 
 	printf("%d\n",feof(fp));
 	printf("%d\n",ferror(fp)); 
-=======
->>>>>>> c263965a7f764eda41b858c22af91888ff003ce8
 }
