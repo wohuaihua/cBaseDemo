@@ -32,7 +32,9 @@ main(){
 	pointer_1=&a;
 	pointer_2=&b;
 	printf("\n%d,%d\n",pointer_1,pointer_2); 
-	if(a<b) swap(pointer_1,pointer_2);
-	printf("\n%d,%d\n",pointer_1,pointer_2); 
+	if(a<b) 
+		swap(pointer_1,pointer_2);
+		printf("%d,%d",a,b);
+	//printf("\n%d,%d\n",pointer_1,pointer_2); 
 	//printf("\n%d,%d\n",*pointer_1,*pointer_2); 
 }
