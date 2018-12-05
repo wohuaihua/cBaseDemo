@@ -47,7 +47,7 @@ void readFileData(char ** p,int lineNum,FILE * file){
 		//将数据拷贝到堆中 
 		//复制字符串from 中的字符到字符串to，包括空值结束符。返回值为指针to。
 		strcpy(currentChar,buf) ;
-		*p[lineIndex]=currentChar;
+		p[lineIndex]=currentChar;
 		lineIndex++;
 		
 		memset(buf,0,1024);
@@ -58,8 +58,21 @@ void readFileData(char ** p,int lineNum,FILE * file){
 void showFileData(char ** p,int lineNum){
 	int i=0;
 	for(i=0;i<lineNum;i++){
-		printf("行%n数据%s\n",i+1,p[i]);
+		printf("行%d,数据%s\n",i+1,p[i]);
 	}
+}
+
+//free内存 
+void freeMemery(char ** p,int lineNum){
+	int i=0;
+	for(i=0;i<lineNum;i++){
+		if(p[i]!=NULL){
+			free(p[i]);
+			p[i]=NULL;
+		}
+	}
+	// 对于形成，这样做是没有任何意义的 
+	p=NULL;
 }
 
 void test(){
@@ -73,10 +86,13 @@ void test(){
 	//将文件中的数据，读取后，放入p中 ,lineNum为有效行数 
 	readFileData(p,lineNum,file);
 	showFileData(p,lineNum);
+	
+	freeMemery(p,lineNum);
+	//防止野指针 
+	p=NULL;
 } 
 
 
 int main(){
 	test();
-		
 } 
