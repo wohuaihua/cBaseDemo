@@ -74,11 +74,11 @@ test(){
 	p=allocateSpace(3);
 	printfPersonArr(p,3);
 	//同级指针释放 
-	//freeSpace(p,3);
-	//p=NULL;
+	freeSpace(p,3);
+	p=NULL;
 	
 	//高级指针释放
-	freeArr(&p,3); 
+	//freeArr(&p,3); 
 	if(p==NULL){
 		printf("已经释放"); 
 	}
