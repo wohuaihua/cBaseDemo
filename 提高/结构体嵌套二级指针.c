@@ -33,7 +33,7 @@ struct Teacher ** allocateSpace(int sum){
 		sprintf((*(p+i))->name,"teacher_%d",i+1);
 		
 		//为 ** students 开辟内存 
-		(*(p+i))->students=malloc(sizeof(char)*4);
+		(*(p+i))->students=malloc(sizeof(char *)*4);
 		int j=0;
 		//为每个学生开辟内存 
 		for(j=0;j<4;j++){
@@ -69,7 +69,6 @@ void allocateMem(struct Teacher ***p,int sum){
 		int j=0;
 		for(j=0;j<4;j++){
 			((*(*p+i))->students)[j]=malloc(sizeof(char)*64);
-			printf("1:%d\n",((*(*p+i))->students)[j]);
 			sprintf(((*(*p+i))->students)[j],"teacher_%d_student_%d",i+1,j+1); 
 		} 
 	}
@@ -80,6 +79,8 @@ void allocateMem(struct Teacher ***p,int sum){
 } 
 
 void printfTeacher(struct Teacher ** p,int sum){
+	printf("\n");
+	printf("开始读取数据\n");
 	int i=0;
 	for(i=0;i<sum;i++){
 		printf("老师名称为 :%s\n",(*(p+i))->name);
@@ -110,18 +111,70 @@ void freeSpace(struct Teacher ** p,int sum,int num){
 			(*(p+i))->name=NULL;
 		}
 		
+		//释放 student 的每个名字 
 		int j=0;
 		for(j=0;j<num;j++){
-		
+			if(((*(p+i))->students)[j]!=NULL){
+				free(((*(p+i))->students)[j]);
+				((*(p+i))->students)[j]=NULL;
+			} 
 		}
+		//释放	student 数组  
+		if((*(p+i))->students!=NULL) {
+			free((*(p+i))->students) ;
+			(*(p+i))->students=NULL;
+		}
+		
+		//释放每个老师
+		if(*(p+i)!=NULL){
+			free(*(p+i));
+			*(p+i)=NULL;
+		} 
 	}
-	 
+	if(p!=NULL){
+		free(p);
+		p=NULL;
+	}
 	
 	ftime(&ts2);//停止计时
     t2=(TIME_T)ts2.time*1000+ts2.millitm;
     printf("freeSpace interval=%d\n",t2-t1);
 } 
 
+//高级指针释放内存 
+void freeMem(struct Teacher *** p,int sum){
+	printf("\n");
+	printf("开始释放内存\n"); 
+	int i=0;
+	for(i=0;i<sum;i++){
+		if((*(*p+i))->name!=NULL){
+			free((*(*p+i))->name);
+			(*(*p+i))->name=NULL;
+		}
+		
+		int j=0;
+		for(j=0;j<4;j++){
+			if((*(*p+i))->students[j]!=NULL){
+				free((*(*p+i))->students[j]);
+				(*(*p+i))->students[j]=NULL;
+			}
+		}
+		
+		if((*(*p+i))->students!=NULL){
+			free((*(*p+i))->students);
+			(*(*p+i))->students=NULL;
+		}
+		
+		if(*(*p+i)!=NULL){
+			free(*(*p+i));
+			*(*p+i)=NULL;
+		}
+	}
+	if(*p!=NULL){
+		free(*p);
+		*p=NULL;
+	}
+} 
 
 void test(){
 	struct Teacher ** p;
@@ -133,7 +186,15 @@ void test(){
 	allocateMem(&p,3);
 	printfTeacher(p,3);
 	
-	freeSpace(p,3,4);
+	//同级指针释放内存 
+	//freeSpace(p,3,4);
+	
+	freeMem(&p,3);
+	
+	//查看是否释放干净 
+	//printfTeacher(p,3);
+	//防止野指针 
+	p=NULL;
 }
 
 int main(){
