@@ -18,12 +18,24 @@ char * fatherPath(){
 	}
 	char * fatherPath=malloc(sizeof(char)*index);
 	//一定要清空数组 
-	memset(fatherPath, '\0',index);
-	for(i=0;i<index+1;i++){
+	memset(fatherPath,0,index);
+	for(i=0;i<index;i++){
 		fatherPath[i]=PATH[i];
 	}
 	//printf("%s\n",fatherPath);
 	return  fatherPath;
+}
+
+int getPathCharNums(){
+	int index=0;
+	int length=strlen(PATH);
+	int i=0;
+	for(i=0;i<length;i++){
+		if('\\'==PATH[i]){
+			index=i;	
+		}
+	}
+	return index;
 }
 
 
@@ -65,11 +77,16 @@ char ** getFileNames(struct _finddata_t fileinfo,long fHandle,int fileNum){
 int deleteFiles(char ** fileNames,int fileNum){
 	int j=0;
 	char * path=fatherPath();
+	path=strcat(path,"\\");
 	printf("%s\n",path);
-	
+	int length=getPathCharNums();
 	for(j=0;j<fileNum;j++){
-		//char * temp=strcat(fatherPath(),fileNames[j]);
-		printf("%s\n",fileNames[j]);
+		char * tempFatherPath=malloc(sizeof(char)*length);
+		memset(tempFatherPath,0,length);
+		strcpy(tempFatherPath,path);
+		
+		tempFatherPath=strcat(tempFatherPath,fileNames[j]);
+		printf("%s\n",tempFatherPath);
     	if(1){
     		//printf("-> 删除文件 : %s\n",path);
     		continue;
