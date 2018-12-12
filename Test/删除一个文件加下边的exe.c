@@ -3,10 +3,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define PATH "D:\\WorkProject\\cBaseDemo\\提高\\*.exe"
+#define PATH ".\\*.exe"
 
 
-//用来获取父亲路径 
+//用来获取父亲路径
+//这里处理中文字符串有问题 
+//strcat 拼接数组的时候也会有问题 
 char * fatherPath(){
 	int index=0;
 	int length=strlen(PATH);
@@ -21,6 +23,7 @@ char * fatherPath(){
 	memset(fatherPath,0,index);
 	for(i=0;i<index;i++){
 		fatherPath[i]=PATH[i];
+		//printf("->%c\n",PATH[i]);
 	}
 	//printf("%s\n",fatherPath);
 	return  fatherPath;
@@ -75,27 +78,20 @@ char ** getFileNames(struct _finddata_t fileinfo,long fHandle,int fileNum){
 //char ** fileNames	文件名集合
 //int fileNum 文件数目 
 int deleteFiles(char ** fileNames,int fileNum){
+	printf("\n删除文件 \n");
 	int j=0;
-	char * path=fatherPath();
-	path=strcat(path,"\\");
-	printf("%s\n",path);
-	int length=getPathCharNums();
 	for(j=0;j<fileNum;j++){
-		char * tempFatherPath=malloc(sizeof(char)*length);
-		memset(tempFatherPath,0,length);
-		strcpy(tempFatherPath,path);
-		
-		tempFatherPath=strcat(tempFatherPath,fileNames[j]);
-		printf("%s\n",tempFatherPath);
-    	if(1){
-    		//printf("-> 删除文件 : %s\n",path);
+    	if(remove(fileNames[j])==0){
+    		printf("-> 删除文件 : %s\n",fileNames[j]);
     		continue;
 		}
-		//printf("\t-> 删除失败 : %s\n",path);
+		printf("\t-> 删除失败 : %s\n",fileNames[j]);
+		perror("失败"); 
 	} 
 } 
 
 void freeSpace(char ** fileNames,int filesNum){
+	printf("\n 释放内存\n");
 	int i=0;
 	for(i=0;i<filesNum;i++){
 		if(fileNames[i]!=NULL){
@@ -110,9 +106,10 @@ void freeSpace(char ** fileNames,int filesNum){
 }
 
 void printfFilesName(char ** fileNames,int filesNum){
+	printf("数据展示 \n");
 	int i=0;
 	for(i=0;i<filesNum;i++){
-		printf("%s\n",fileNames[i]);
+		printf("\t-> %s\n",fileNames[i]);
 	}
 }
 
@@ -127,9 +124,10 @@ int main(void)
     char ** fileNames;
     fileNum=filesNum(fileinfo,fHandle);
     fileNames=getFileNames(fileinfo,fHandle,fileNum);
-	//printfFilesName(fileNames,fileNum);    
+	printfFilesName(fileNames,fileNum);    
     deleteFiles(fileNames,fileNum);
     freeSpace(fileNames,fileNum);
+    system("pause");
     return 0;
 }
 
