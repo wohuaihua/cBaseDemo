@@ -2,6 +2,10 @@
  
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 
+
+//undefined reference to `__imp_GetStockObject'    -mwindows
+//undefined reference to `__imp_PlaySoundA'        -lwinmm
+
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PSTR szCmdLine, int iCmdShow)
 {

@@ -3,6 +3,8 @@
 #include<WCHAR.H>
 #include<tchar.h>
 
+#define _UNICODE 1
+
 void test(){
 	char a='A';
 	
@@ -74,6 +76,20 @@ void test04(){
 	printf("%d",sizeof(TCHAR));
 }
 
+//中文 
+void test05(){
+	char a[]="胡爱华ABCD";
+	printf("%s\n",a);
+	printf("%d\n",sizeof(a));
+	printf("%d\n",strlen(a)); 
+}
+
+void test06(){
+	TCHAR a[]=_T("胡爱华ABCD");
+	printf("%d\n",_tcslen(a));
+	printf("%d\n",wcslen(a));
+}
+
 int main(){
-	test04();
+	test06();
 }
