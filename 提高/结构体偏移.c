@@ -48,5 +48,5 @@ void test03(){
 }
 
 int main(){
-	test02();
+	test();
 }

@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<WCHAR.H>
+#include<tchar.h>
 
 void test(){
 	char a='A';
@@ -38,10 +39,11 @@ void test01(){
 	
 	//一个引号前面的L非常重要，并且在两个符号之间必须没有空格。只有带有L，编译器才知道您需要将字符串存为每个字符2字节。
 	static wchar_t c[] = L"Hello!" ;
-	printf("%d",sizeof(c));
+	printf("%d\n",sizeof(c));
 	
 	//但通常这是不必要的，C编译器会对该字符进行扩充，使它成为宽字符。
 	wchar_t d = L'A' ;
+	printf("%d\n",sizeof(d)); 
 	
 }
 
@@ -57,6 +59,21 @@ void test02(){
 	
 }
 
+void test03(){
+	printf ("The sum of %i and %i is %i\n", 5, 3, 5+3) ;
+	
+	char szBuffer [100] ;
+    //第一个参数是字符缓冲区；后面是一个格式字符串。
+	//Sprintf不是将格式化结果标准输出，而是将其存入szBuffer。    
+	sprintf (szBuffer, "The sum of %i and %i is %i\n", 5, 3, 5+3) ;
+        
+	puts (szBuffer) ;
+}
+
+void test04(){
+	printf("%d",sizeof(TCHAR));
+}
+
 int main(){
-	test02();
+	test04();
 }
