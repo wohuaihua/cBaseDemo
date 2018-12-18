@@ -5,8 +5,8 @@
 	#define WINAPI __stdcall
 	该语句指定了一个呼叫约定，包括如何生产机械码以在堆栈中放置函数呼叫的参数。
 	许多Windows函数呼叫声明为WINAPI。
-	
-	
+
+
 	HINSTANCE hInstance  第一个参数被称作「执行实体句柄」
 	句柄仅是一个应用程序用来识别某些东西的数字
 	
@@ -40,7 +40,7 @@ int WINAPI WinMain (HINSTANCE hInstance,
 		第四个参数可以是在WINUSER.H中定义的一组以前缀MB_开始的常数的组合
 	*/
 	 
-	MessageBox (NULL, TEXT("Hello, Windows 98!"), TEXT("HelloMsg"), 0);
+	MessageBox (NULL, TEXT("Hello, Windows 98!"), TEXT("HelloMsg"), MB_OK|MB_DEFBUTTON3|MB_ICONHAND);
 	return 0 ;
 }
 

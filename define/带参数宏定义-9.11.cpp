@@ -5,5 +5,5 @@
 main(){
 	int l=3,w=4,h=5,sa,sb,sc,vv;
 	SSSV(sa,sb,sc,vv);
-	printf("sa=%d\nsb=%d\nsc=%d\nnv=%d\n",sa,sb,sc,vv);
+	printf(" sa=%d\n sb=%d\n sc=%d\n nv=%d\n",sa,sb,sc,vv);
 } 

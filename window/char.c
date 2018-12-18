@@ -2,8 +2,10 @@
 #include<string.h>
 #include<WCHAR.H>
 #include<tchar.h>
+#include<windows.h>
 
-#define _UNICODE 1
+#define _UNICODE
+#define UNICODE
 
 void test(){
 	char a='A';
@@ -14,7 +16,7 @@ void test(){
 	printf("%d\n",strlen(p));
 	
 	//编译器为该数组保留了10个字节的储存空间。 
-	char b[10] ;
+	char b[10];
 	printf("%d\n",sizeof(b));
     
     //sizeof  会计算0  
@@ -85,9 +87,9 @@ void test05(){
 }
 
 void test06(){
-	TCHAR a[]=_T("胡爱华ABCD");
-	printf("%d\n",_tcslen(a));
-	printf("%d\n",wcslen(a));
+	TCHAR a[]=_TEXT ("Hello!");
+	_tprintf("%d\n",_tcslen(a));
+	//printf("%d\n",wcslen(a));
 }
 
 int main(){
