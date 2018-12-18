@@ -45,8 +45,10 @@ int WINAPI WinMain (HINSTANCE hInstance,
     //以图素为单位显示了视讯显示的宽度和高度。 
     cxScreen = GetSystemMetrics (SM_CXSCREEN) ;
     cyScreen = GetSystemMetrics (SM_CYSCREEN) ;
+    //指定系统启动方式的值：
+    int cleanBoot=GetSystemMetrics(SM_CLEANBOOT);
     MessageBoxPrintf (TEXT("ScrnSize"),
-		TEXT ("The screen is %i pixels wide by %i pixels high."),cxScreen, cyScreen) ;
+		TEXT ("The screen is %i pixels wide by %i pixels high.  cleanBoot is %i"),cxScreen, cyScreen,cleanBoot) ;
     return 0 ;
 }
 
